@@ -1,5 +1,3 @@
-Klar, ich kann dir den Inhalt auch als Markdown-Datei formatieren. Hier ist der Inhalt als Text, den du einfach als README.md speichern kannst:
-
 # Riemenantrieb Berechnungstool
 
 Dieses Python-Skript ist ein interaktives Tool zur Berechnung verschiedener Kenngrößen eines Riemenantriebs, wie z. B.:
@@ -34,12 +32,15 @@ Was möchtest du berechnen?
 4 - Riemenlänge (RIL)
 5 - Achsabstand (Am)
 
+```
 
 Je nach Auswahl wirst du zur Eingabe der erforderlichen Werte (z. B. Riemenlänge, Zahnanzahl, etc.) aufgefordert. Anschließend wird die gewünschte Größe berechnet und ausgegeben.
 
 🔢 Beispiel
 
 Angenommen, du möchtest den Achsabstand berechnen:
+
+```bash
 
 Wähle im Menü die Option 5 (Achsabstand).
 
@@ -54,6 +55,7 @@ Zahnabstand GT (in mm): 5
 Ausgabe:
 
 Achsabstand Am = 120.45 mm
+```
 
 ⚙️ Implementierte Funktionen
 Rechenfunktionen:
