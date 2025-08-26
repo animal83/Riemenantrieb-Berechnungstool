@@ -19,7 +19,7 @@ Das Tool kann z. B. beim Entwurf oder der Analyse von Zahnriemenantrieben verw
 Das Programm wird über die Konsole gestartet:
 
 ```bash
-python riemenberechnung.py
+python main.py
 
 Interaktive Auswahl
 
