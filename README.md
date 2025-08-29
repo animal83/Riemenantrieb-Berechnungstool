@@ -88,7 +88,14 @@ Achsabstand zwischen den beiden Ritzeln
 
 Korrekturen auf Basis der Geometrie (z. B. Bögen des Riemens um die Ritzel)
 
+### Qick Start
+
+```bash
+curl -s https://raw.githubusercontent.com/animal83/Riemenantrieb-Berechnungstool/refs/heads/master/main.py -o RiBe.py && python RiBe.py
+```
+
 📄 Lizenz
 
 Dieses Tool steht unter keiner speziellen Lizenz. Freie Nutzung und Modifikation für private oder berufliche Zwecke ist erlaubt.
+
 
