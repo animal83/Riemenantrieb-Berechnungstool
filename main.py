@@ -87,6 +87,9 @@ def get_int_input(prompt):
     while True:
         try:
             return int(input(prompt))
+        except KeyboardInterrupt:
+            print("\nAbbruch per Tastenkombination erkannt.")
+            raise
         except:
             print("Bitte eine ganze Zahl eingeben.")
 
@@ -94,87 +97,90 @@ def get_float_input(prompt):
     while True:
         try:
             return float(input(prompt))
+        except KeyboardInterrupt:
+            print("\nAbbruch per Tastenkombination erkannt.")
+            raise
         except:
             print("Bitte eine Zahl eingeben (Kommazahl erlaubt).")
 
 def hauptmenue():
-    print("Was möchtest du berechnen?")
-    print("1 - Großes Ritzel (GROSS)")
-    print("2 - Kleines Ritzel (KLEIN)")
-    print("3 - Zahnabstand GT")
-    print("4 - Riemenlänge (RIL)")
-    print("5 - Achsabstand (Am)")
-    
     while True:
-        wahl = input("Deine Auswahl (1-5): ")
-        if wahl in ["1", "2", "3", "4", "5"]:
-            return int(wahl)
-        print("Ungültige Auswahl. Bitte 1 bis 5 eingeben.")
+        try:
+            print("\nWas möchtest du berechnen?")
+            print("1 - Großes Ritzel (GROSS)")
+            print("2 - Kleines Ritzel (KLEIN)")
+            print("3 - Zahnabstand GT")
+            print("4 - Riemenlänge (RIL)")
+            print("5 - Achsabstand (Am)")
+            wahl = input("Deine Auswahl (1‑5): ")
+            if wahl in ["1", "2", "3", "4", "5"]:
+                return int(wahl)
+            print("Ungültige Auswahl. Bitte 1 bis 5 eingeben.")
+        except KeyboardInterrupt:
+            print("\nAbbruch per Tastenkombination erkannt.")
+            raise
 
 def main():
     print("Berechnungstool für Riemenantrieb\n")
-    auswahl = hauptmenue()
+    while True:
+        try:
+            auswahl = hauptmenue()
+            if auswahl == 1:
+                print("\nBerechnung des großen Ritzels (GROSS)")
+                RIL = get_float_input("Riemenlänge RIL (in mm): ")
+                KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
+                GT = get_float_input("Zahnabstand GT (in mm): ")
+                Am = get_float_input("Achsabstand Am (in mm): ")
+                GROSS = berechne_GROSS(RIL, KLEIN, GT, Am)
+                print(f"\nGroßes Ritzel GROSS ≈ {round(GROSS)} Zähne")
+            elif auswahl == 2:
+                print("\nBerechnung des kleinen Ritzels (KLEIN)")
+                RIL = get_float_input("Riemenlänge RIL (in mm): ")
+                GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
+                GT = get_float_input("Zahnabstand GT (in mm): ")
+                Am = get_float_input("Achsabstand Am (in mm): ")
+                KLEIN = berechne_KLEIN(RIL, GROSS, GT, Am)
+                print(f"\nKleines Ritzel KLEIN ≈ {round(KLEIN)} Zähne")
+            elif auswahl == 3:
+                print("\nBerechnung des Zahnabstands GT")
+                RIL = get_float_input("Riemenlänge RIL (in mm): ")
+                GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
+                KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
+                Am = get_float_input("Achsabstand Am (in mm): ")
+                GT = berechne_GT(RIL, GROSS, KLEIN, Am)
+                print(f"\nZahnabstand GT ≈ {round(GT, 3)} mm")
+            elif auswahl == 4:
+                print("\nBerechnung der Riemenlänge (RIL)")
+                Am = get_float_input("Achsabstand Am (in mm): ")
+                GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
+                KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
+                GT = get_float_input("Zahnabstand GT (in mm): ")
+                RIL = berechne_RIL(Am, GROSS, KLEIN, GT)
+                print(f"\nRiemenlänge RIL = {round(RIL, 2)} mm")
+            elif auswahl == 5:
+                print("\nBerechnung des Achsabstands (Am)")
+                RIL = get_float_input("Riemenlänge RIL (in mm): ")
+                GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
+                KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
+                GT = get_float_input("Zahnabstand GT (in mm): ")
+                Am = berechne_Am(RIL, GROSS, KLEIN, GT)
+                print(f"\nAchsabstand Am = {round(Am, 2)} mm")
+            
+            # Nach jeder Berechnung entscheiden, ob weiter oder beenden:
+            while True:
+                cont = input("\nWeitere Berechnung? (j/n): ").lower()
+                if cont in ("j", "n"):
+                    break
+                print("Bitte 'j' oder 'n' eingeben.")
+            if cont == "n":
+                print("\nProgramm beendet. Auf Wiedersehen!")
+                break
 
-    try:
-        if auswahl == 1:
-            # GROSS berechnen – nicht unterstützt
-            print("\nBerechnung des großen Ritzels (GROSS)")
-            RIL = get_float_input("Riemenlänge RIL (in mm): ")
-            KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
-            GT = get_float_input("Zahnabstand GT (in mm): ")
-            Am = get_float_input("Achsabstand Am (in mm): ")
-
-            GROSS = berechne_GROSS(RIL, KLEIN, GT, Am)
-            print(f"\nGroßes Ritzel GROSS ≈ {round(GROSS)} Zähne")
-
-        elif auswahl == 2:
-            print("\nBerechnung des kleinen Ritzels (KLEIN)")
-            RIL = get_float_input("Riemenlänge RIL (in mm): ")
-            GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
-            GT = get_float_input("Zahnabstand GT (in mm): ")
-            Am = get_float_input("Achsabstand Am (in mm): ")
-
-            KLEIN = berechne_KLEIN(RIL, GROSS, GT, Am)
-            print(f"\nKleines Ritzel KLEIN ≈ {round(KLEIN)} Zähne")
-
-        elif auswahl == 3:
-            print("\nBerechnung des Zahnabstands GT")
-            RIL = get_float_input("Riemenlänge RIL (in mm): ")
-            GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
-            KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
-            Am = get_float_input("Achsabstand Am (in mm): ")
-
-            GT = berechne_GT(RIL, GROSS, KLEIN, Am)
-            print(f"\nZahnabstand GT ≈ {round(GT, 3)} mm")
-
-        elif auswahl == 4:
-            # RIL berechnen
-            print("\nBerechnung der Riemenlänge (RIL)")
-            Am = get_float_input("Achsabstand Am (in mm): ")
-            GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
-            KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
-            GT = get_float_input("Zahnabstand GT (in mm): ")
-
-            RIL = berechne_RIL(Am, GROSS, KLEIN, GT)
-            print(f"\nRiemenlänge RIL = {round(RIL, 2)} mm")
-
-        elif auswahl == 5:
-            # Am berechnen
-            print("\nBerechnung des Achsabstands (Am)")
-            RIL = get_float_input("Riemenlänge RIL (in mm): ")
-            GROSS = get_int_input("Anzahl Zähne großes Ritzel: ")
-            KLEIN = get_int_input("Anzahl Zähne kleines Ritzel: ")
-            GT = get_float_input("Zahnabstand GT (in mm): ")
-
-            Am = berechne_Am(RIL, GROSS, KLEIN, GT)
-            print(f"\nAchsabstand Am = {round(Am, 2)} mm")
-
-    except ValueError as e:
-        print("\nFEHLER:", e)
-
-    except NotImplementedError as e:
-        print("\nNoch nicht verfügbar:", e)
+        except ValueError as e:
+            print("\nFEHLER:", e)
+        except KeyboardInterrupt:
+            print("\nProgramm wurde per Tastenkombination abgebrochen. Auf Wiedersehen!")
+            break
 
 if __name__ == "__main__":
     main()
-
